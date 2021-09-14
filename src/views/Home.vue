@@ -2,7 +2,7 @@
   <div class="home">
     <input type="search" placeholder="Bulbasaur" />
     <button type="button">Search</button>
-
+    
     <div class="loader" v-if="isLoading">
       <img class="loader__img" src="@/assets/spinning-mew.gif" alt="loader gif">
       <h2 class="loader__subtitle">Catching all Pokemon...</h2>
