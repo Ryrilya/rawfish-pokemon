@@ -1,5 +1,5 @@
 <template>
-  pokèmon
+  <h1 class="page-title">Rawfish Pokédex</h1>
   <router-view/>
 </template>
 
