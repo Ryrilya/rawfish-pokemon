@@ -11,4 +11,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+html,
+body {
+  font-family: "Josefin Sans", sans-serif;
+}
 </style>

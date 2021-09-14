@@ -95,6 +95,7 @@ export default defineComponent({
 .pokemon-cards {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  column-gap: 1rem;
   row-gap: 3rem;
   margin: 5rem;
 }
