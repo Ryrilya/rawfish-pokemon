@@ -24,8 +24,8 @@ export default createStore({
      * This function is called at the very beginning and whenever the user
      * clicks "previous" or "next" button on the interface.
     */
-    async getAllPokemon({commit}){
-      const response = await fetch(`${API_URL}/pokemon?limit=50`);
+    async getAllPokemon({commit}, url = `${API_URL}/pokemon?limit=50`){
+      const response = await fetch(url);
       const parsedResponse = await response.json() as IAPIResponse;
 
       return parsedResponse;
