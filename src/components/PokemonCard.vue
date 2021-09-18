@@ -75,6 +75,7 @@ export default defineComponent({
     padding: 2rem;
     cursor: pointer;
     transition: transform 0.15s linear;
+    
 
     &:hover {
       transform: translateY(-0.5em);

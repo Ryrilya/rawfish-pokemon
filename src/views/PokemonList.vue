@@ -1,13 +1,13 @@
 <template>
   <main class="home">
-    <h2 class="page-title">Pokemon List</h2>
+    <h1 class="page-title">Pokemon List</h1>
 
     <loader v-if="isLoading"></loader>
 
     <section class="home__main-content" v-show="!isLoading">
       <div class="home__pagination">
         <button
-          class="btn btn--primary"
+          class="home__pagination-btn btn btn--primary"
           type="button"
           @click="changePage(false)"
           :disabled="!prevPageUrl"
@@ -16,7 +16,7 @@
           Previous
         </button>
         <button
-          class="btn btn--primary"
+          class="home__pagination-btn btn btn--primary"
           type="button"
           @click="changePage"
           :disabled="!nextPageUrl"
@@ -36,7 +36,7 @@
 
       <div class="home__pagination">
         <button
-          class="btn btn--primary"
+          class="home__pagination-btn btn btn--primary"
           type="button"
           @click="changePage(false)"
           :disabled="!prevPageUrl"
@@ -45,7 +45,7 @@
           Previous
         </button>
         <button
-          class="btn btn--primary"
+          class="home__pagination-btn btn btn--primary"
           type="button"
           @click="changePage"
           :disabled="!nextPageUrl"
@@ -133,11 +133,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .home {
-  padding: 2rem 5rem;
+  padding: 2rem 3rem;
+  overflow: hidden;
 
   &__main-content {
     .home__pagination {
       display: flex;
+      flex-grow: unset;
       justify-content: space-between;
       align-items: center;
       margin: 2rem 0;
@@ -145,7 +147,7 @@ export default defineComponent({
 
     .home__pokemon-cards {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
       column-gap: 1rem;
       row-gap: 3rem;
     }
