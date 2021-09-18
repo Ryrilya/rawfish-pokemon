@@ -2,10 +2,10 @@ export interface IAPIResponse {
   count: number;
   next: string;
   previous?: any;
-  results: ISource[];
+  results: Source[];
 }
 
-export interface ISource {
+export interface Source {
   name: string;
   url: string;
 }
