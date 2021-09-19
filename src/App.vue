@@ -4,7 +4,7 @@
       <h2 class="main-header__brand">Rawfish Pokédex</h2>
     </router-link>
   </header>
-  <router-view class="app__router-view" />
+  <router-view class="app__router-view" :key="$route.path" />
 </template>
 
 <script lang="ts">
