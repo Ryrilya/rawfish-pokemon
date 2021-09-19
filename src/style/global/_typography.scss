@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+@import '../utils/mixins';
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+h1 {
+  @include min-laptop-L {
+    font-size: 4.375rem;
+  }
+
+  @include max-laptop {
+    font-size: 4rem;
+  }
+}
+
+.page-title {
+  margin-top: 2rem;
+  text-transform: capitalize;
+
+  @include max-mobile-L {
+    text-align: center;
+  }
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none;
+  color: unset;
+}

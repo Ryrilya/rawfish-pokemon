@@ -111,20 +111,33 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.evolution-line {
+@import '../../style/utils/mixins';
 
+.evolution-line {
   &__line {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 3rem;
 
-    padding: 2rem 3rem;
+    @include min-laptop {
+      gap: 0;
+    }
+
+    @include max-tablet {
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   &__ring {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
+
+    @include max-tablet {
+      flex-direction: column-reverse;
+      margin-top: 0;
+    }
   }
 
   &__ring-details,
@@ -139,6 +152,16 @@ export default defineComponent({
     gap: .5rem;
     font-size: 3em;
     color: hsl(0, 0%, 16%);
+
+    @include min-laptop {
+      font-size: 2em;
+    }
+
+    @include max-tablet {
+      margin-top: 2rem;
+      gap: 0;
+      transform: rotate(90deg);
+    }
   }
 
   &__method {

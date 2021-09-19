@@ -1,0 +1,25 @@
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Josefin Sans', sans-serif;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  &--primary {
+    background-color: hsl(19, 85%, 56%);
+    color: white;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}

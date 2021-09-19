@@ -18,21 +18,33 @@
       <tbody class="moves-table__table-body">
         <tr class="moves-table__move" v-for="move in tableMoves" :key="move.id">
           <td class="moves-table__move-lvl" v-if="move.lvl">{{ move.lvl }}</td>
-          <td class="moves-table__move-tm" v-if="move.tmNum">{{ move.tmNum }}</td>
-          <td class="moves-table__move-tr" v-if="move.trNum">{{ move.trNum }}</td>
+          <td class="moves-table__move-tm" v-if="move.tmNum">
+            {{ move.tmNum }}
+          </td>
+          <td class="moves-table__move-tr" v-if="move.trNum">
+            {{ move.trNum }}
+          </td>
 
           <td class="moves-table__move-name">{{ move.name }}</td>
           <td class="moves-table__move-type">
             <div class="app__type-pill" :class="`app__type-pill--${move.type}`">
               {{ move.type }}
-              <img class="app__type-pill-icon" :src="loadTypeImg(move.type)" :alt="`${move.type} icon`">
+              <img
+                class="app__type-pill-icon"
+                :src="loadTypeImg(move.type)"
+                :alt="`${move.type} icon`"
+              />
             </div>
           </td>
           <td class="moves-table__move-category">
             {{ move.category }}
           </td>
-          <td class="moves-table__move-power">{{ move.power ? move.power : '/' }}</td>
-          <td class="moves-table__move-accuracy">{{  move.accuracy ? move.accuracy : '/' }}</td>
+          <td class="moves-table__move-power">
+            {{ move.power ? move.power : "/" }}
+          </td>
+          <td class="moves-table__move-accuracy">
+            {{ move.accuracy ? move.accuracy : "/" }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -77,8 +89,6 @@ export default defineComponent({
     const moves = props.moves as MoveSource[];
     const tableMoves = ref<IMoveRecord[]>([]);
     const typeIconsFolder = inject<(path: string) => string>('typeIconsFolder');
-
-    console.dir(tableMoves.value);
     
     onMounted(() => {
       moves.forEach(async (moveSrc) => {
@@ -130,6 +140,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../../style/utils/mixins";
+
 .moves-table {
   width: 100%;
 
@@ -142,10 +154,26 @@ export default defineComponent({
     border-collapse: collapse;
     margin-top: 0.5rem;
 
+    @include max-tablet {
+      display: block;
+      overflow: auto;
+    }
+
+    thead,
+    tbody {
+      @include max-tablet {
+        width: 100%;
+      }
+    }
+
     thead tr th,
     tbody tr td {
       text-align: left;
       padding: 0.5rem 0.8rem;
+
+      @include max-mobile-L {
+        padding: .3rem .5rem;
+      }
     }
 
     thead tr th {
@@ -168,13 +196,14 @@ export default defineComponent({
       td {
         &.moves-table__move-lvl,
         &.moves-table__move-tm,
-        &.moves-table__move-tr {
+        &.moves-table__move-tr,
+        &.moves-table__move-power,
+        &.moves-table__move-accuracy {
           text-align: right;
         }
 
-
         &.moves-table__move-name,
-        &.moves-table__move-category  {
+        &.moves-table__move-category {
           text-transform: capitalize;
         }
 

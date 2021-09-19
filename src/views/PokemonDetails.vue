@@ -1,59 +1,105 @@
 <template>
-  <main class="pokemon-details" v-if="pokemon && !isLoading">
+  <main class="pokemon-details">
     <loader v-if="isLoading"></loader>
 
-    <header class="pokemon-details__header" >
-      <div class="pokemon-details__name-number">
-        <h2 class="page-title">
-          {{ pokemon.name }}
-        </h2>
-      </div>
-
-      <h4 class="pokemon-details__genus">{{ genus }}</h4>
+    <header class="pokemon-details__header" v-if="pokemon && !isLoading">
+      <h1 class="page-title">{{ pokemon.name }}</h1>
+      <small class="pokemon-details__genus">{{ genus }}</small>
     </header>
 
-    <section class="pokemon-details__details">
+    <section class="pokemon-details__details" v-if="pokemon && !isLoading">
       <div class="pokemon-details__sprite-container">
-        <img
-          class="pokemon-details__sprite"
-          :src="pokemonArtworkUrl"
-          :alt="pokemon.name + 'sprite'"
-        />
+        <div class="pokemon-details__sprite-background">
+          <img
+            class="pokemon-details__sprite"
+            :src="pokemonArtworkUrl"
+            :alt="pokemon.name + 'sprite'"
+          />
+        </div>
       </div>
 
       <div class="pokemon-details__data">
         <PokedexData :pokemon="pokemon"></PokedexData>
         <Breeding :pokemon="pokemon"></Breeding>
-        <Stats :stats="pokemon.stats"></Stats>
       </div>
     </section>
 
-    <EvolutionLine :species="species"></EvolutionLine>
+    <Stats :stats="pokemon.stats" v-if="pokemon && !isLoading"></Stats>
+
+    <EvolutionLine
+      :species="species"
+      v-if="pokemon && !isLoading"
+    ></EvolutionLine>
 
     <!-- Moves -->
-    <section class="pokemon-details__moves">
+    <section class="pokemon-details__moves" v-if="pokemon && !isLoading">
       <h3 class="pokemon-details__title underline-border">Moves</h3>
 
       <div class="pokemon-details__moves-table-container">
-        <MovesTable 
-          v-if="moves.filter(move => move.version_group_details[0].move_learn_method.name === 'level-up').length > 0"
-          :moves="moves.filter(move => move.version_group_details[0].move_learn_method.name === 'level-up')" 
-          table-lable="Learnt by Level Up" 
-          variant="level-up"></MovesTable>
-        <MovesTable 
-          v-if="moves.filter(move => move.version_group_details[0].move_learn_method.name === 'egg').length > 0"
-          :moves="moves.filter(move => move.version_group_details[0].move_learn_method.name === 'egg')" 
+        <MovesTable
+          v-if="
+            moves.filter(
+              (move) =>
+                move.version_group_details[0].move_learn_method.name ===
+                'level-up'
+            ).length > 0
+          "
+          :moves="
+            moves.filter(
+              (move) =>
+                move.version_group_details[0].move_learn_method.name ===
+                'level-up'
+            )
+          "
+          table-lable="Learnt by Level Up"
+          variant="level-up"
+        ></MovesTable>
+        <MovesTable
+          v-if="
+            moves.filter(
+              (move) =>
+                move.version_group_details[0].move_learn_method.name === 'egg'
+            ).length > 0
+          "
+          :moves="
+            moves.filter(
+              (move) =>
+                move.version_group_details[0].move_learn_method.name === 'egg'
+            )
+          "
           table-lable="Egg Moves"
         ></MovesTable>
-        <MovesTable 
-          v-if="moves.filter(move => move.version_group_details[0].move_learn_method.name === 'tutor').length > 0"
-          :moves="moves.filter(move => move.version_group_details[0].move_learn_method.name === 'tutor')" 
+        <MovesTable
+          v-if="
+            moves.filter(
+              (move) =>
+                move.version_group_details[0].move_learn_method.name === 'tutor'
+            ).length > 0
+          "
+          :moves="
+            moves.filter(
+              (move) =>
+                move.version_group_details[0].move_learn_method.name === 'tutor'
+            )
+          "
           table-lable="Learnt by Tutor"
         ></MovesTable>
-        <MovesTable 
-          v-if="moves.filter(move => move.version_group_details[0].move_learn_method.name === 'machine').length > 0"
-          :moves="moves.filter(move => move.version_group_details[0].move_learn_method.name === 'machine')" 
-          table-lable="Learnt by TM" 
+        <MovesTable
+          v-if="
+            moves.filter(
+              (move) =>
+                move.version_group_details[0].move_learn_method.name ===
+                'machine'
+            ).length > 0
+          "
+          :moves="
+            moves.filter(
+              (move) =>
+                move.version_group_details[0].move_learn_method.name ===
+                'machine'
+            )
+          "
+          table-lable="Learnt by TM"
           variant="tm"
         ></MovesTable>
       </div>
@@ -153,55 +199,87 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "../style/utils/mixins";
+
 .pokemon-details {
-  padding: 2rem 5rem;
-  width: 100%;
   height: 100%;
-  min-height: 100vh;
+  position: relative;
+
+  @include min-laptop {
+    padding: 0 4rem 4rem 4rem;
+  }
+
+  @include max-tablet {
+    padding: 0 3rem 4rem 3rem;
+  }
 
   &__data {
-    width: 80%;
+    width: 100%;
 
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    row-gap: 0;
+    @include max-tablet {
+      margin-top: 4rem;
+    }
   }
 
   &__title {
     font-size: 1.8em;
     color: hsl(0, 0%, 16%);
-    margin-top: 2rem;
+    margin-top: 4rem;
     margin-bottom: 2rem;
     font-family: "Josefin Sans", sans-serif;
+
+    @include min-laptop-L {
+      font-size: 3em;
+    }
+
+    @include max-tablet {
+      font-size: 2.5em;
+    }
+
+    @include max-mobile-L {
+      font-size: 2.3em;
+    }
+
+    @include max-mobile-L {
+      font-size: 2em;
+    }
   }
 
   &__header {
-    margin-top: 2rem;
+    margin: 5rem 0;
+    display: flex;
+    flex-direction: column;
 
-    .pokemon-details__name-number {
-      display: flex;
-      justify-content: flex-start;
+    @include max-mobile-L {
+      justify-content: center;
       align-items: center;
-      gap: 2rem;
+      text-align: center;
+    }
 
-      .pokemon-details__number {
-        font-size: 2em;
-        color: #999;
-      }
+    .page-title {
+      margin-top: 0;
     }
 
     .pokemon-details__genus {
+      font-family: "Josefin Sans", sans-serif;
       color: #999;
+
+      @include min-laptop-L {
+        font-size: 1.5em;
+      }
+
+      @include max-laptop {
+        font-size: 1.3em;
+      }
     }
   }
 
   &__details {
     width: 100%;
+    margin-top: 2rem;
     display: grid;
-    grid-template-columns: 25% auto;
-    gap: 5rem;
-    margin-top: 3rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
 
     .pokemon-details__sprite-container {
       width: 100%;
@@ -209,30 +287,89 @@ export default defineComponent({
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #f2f2f2;
-      border-radius: 50%;
 
-      .pokemon-details__sprite {
-        width: 100%;
+      .pokemon-details__sprite-background {
+        position: relative;
+        height: 0;
+        background-color: #f2f2f2;
+        border-radius: 50%;
+
+        .pokemon-details__sprite {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
+        }
       }
     }
 
-    .pokemon-details__text {
-      font-size: 1.2rem;
+    @include min-laptop-L {
+      margin: 3rem 0;
+
+      .pokemon-details__sprite-background {
+        width: 60%;
+        padding-bottom: 60%;
+      }
+    }
+
+    @include max-laptop-L {
+      padding: 3rem;
+      gap: 10rem;
+
+      .pokemon-details__sprite-background {
+        width: 100%;
+        padding-bottom: 100%;
+      }
+    }
+
+    @include min-laptop {
+      gap: 5rem;
+    }
+
+    @include max-laptop {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .pokemon-details__sprite-background {
+        width: 60%;
+        padding-bottom: 60%;
+      }
+    }
+
+    @include max-tablet {
+      padding: 0;
+      gap: 0;
+    }
+
+    @include max-mobile-L {
+      .pokemon-details__sprite-background {
+        width: 80%;
+        padding-bottom: 80%;
+      }
     }
   }
 
   &__moves {
+    width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     padding-bottom: 5rem;
   }
 
   &__moves-table-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10rem;
+    gap: 2rem;
     row-gap: 3rem;
+
+    @media only screen and (max-width: 1200px) {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 </style>

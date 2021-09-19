@@ -58,6 +58,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import '../style/utils/mixins';
+
 .pokemon-card {
   display: flex;
   flex-direction: column;
