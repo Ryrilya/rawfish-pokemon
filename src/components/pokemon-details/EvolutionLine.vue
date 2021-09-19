@@ -11,7 +11,7 @@
           <!-- Trigger Even here -->
         </div>
 
-        <div class="evolution-line__ring-details">
+        <router-link class="evolution-line__ring-details" :to="{ name: 'PokemonDetails', params: { name: ring.name }}">
           <!-- Artwork -->
           <div class="evolution-line__pokemon-artwork-container">
             <img class="evolution-line__pokemon-artwork" :src="ring.artwork" :alt="`${ring.name} artwork`">
@@ -26,7 +26,7 @@
               <img class="evolution-line__type-icon app__type-pill-icon" :src="loadTypeImg(type)">
             </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </section>
