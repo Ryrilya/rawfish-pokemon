@@ -1,71 +1,4 @@
-@import './mixins.scss';
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body,
-#app {
-  width: 100%;
-  height: 100%;
-  font-family: "Roboto", sans-serif;
-}
-
-
-// Main Header
-.main-header {
-  background-color: #2a2a2a;
-  padding: 2rem 3rem;
-
-  &__link {
-    color: white;
-    text-decoration: none;
-  }
-
-  &__brand {
-    font-size: 1.8em;
-    color: white;
-    cursor: pointer;
-    font-family: "Josefin Sans", sans-serif;
-  }
-}
-
-.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
-  font-weight: bold;
-  font-family: 'Josefin Sans', sans-serif;
-  cursor: pointer;
-  border: none;
-  border-radius: 0.5rem;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  
-  @include sm-screen {
-    font-size: 1.125rem;
-  }
-
-  @include xs-screen {
-    font-size: 1rem;
-  }
-
-  &--primary {
-    background-color: hsl(19, 85%, 56%);
-    color: white;
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
-}
+@import '../utils/mixins';
 
 .app__type-pill {
   display: flex;
@@ -78,6 +11,10 @@ body,
   padding: 0.25rem 1rem;
   border-radius: 0.5rem;
   text-transform: capitalize;
+
+  @include min-tablet {
+    padding: .3rem 1.5rem;
+  }
 
   &-icon {
     width: 1em;
@@ -172,23 +109,5 @@ body,
   &--dragon {
     background: linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
     color: white;
-  }
-}
-
-.underline-border {
-  position: relative;
-  line-height: 1.6em;
-
-  &::after {
-    content: "";
-    width: 100%;
-    max-width: 150px;
-    height: 0.25rem;
-    background-color: hsl(19, 85%, 56%);
-    border-radius: 0.5rem;
-
-    position: absolute;
-    bottom: 0;
-    left: 0;
   }
 }

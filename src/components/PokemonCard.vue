@@ -58,6 +58,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import '../style/utils/mixins';
+
 .pokemon-card {
   display: flex;
   flex-direction: column;
@@ -75,7 +77,6 @@ export default defineComponent({
     padding: 2rem;
     cursor: pointer;
     transition: transform 0.15s linear;
-    
 
     &:hover {
       transform: translateY(-0.5em);

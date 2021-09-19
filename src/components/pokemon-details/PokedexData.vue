@@ -89,40 +89,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.data-list {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  &__title {
-    font-size: 1.5rem;
-    font-family: 'Josefin Sans', sans-serif;
-    color: hsl(0, 0%, 16%);
-    margin-bottom: 0.5rem;
-  }
-
-  &__info {
-    display: grid;
-    grid-template-columns: 30% auto;
-    gap: 2rem;
-
-    font-size: 1.2darem;
-    padding: 0.5rem 0;
-
-
-    &-title {
-      color: hsl(0, 0%, 45%);
-      display: flex;
-      align-items: center;
-    }
-  }
-}
+@import '../../style/utils/mixins';
 
 .pokedex-data {
   &__types {
     display: flex;
     align-items: center;
     gap: .5rem;
+
+    @include max-mobile-L {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   &__abilities {

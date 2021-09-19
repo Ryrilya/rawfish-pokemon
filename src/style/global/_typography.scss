@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
-@import './mixins';
+@import '../utils/mixins';
 
 h1,
 h2,
@@ -12,22 +12,22 @@ h6 {
 }
 
 h1 {
-  @include xlg-screen {
-    font-size: 4.3rem;
+  @include min-laptop-L {
+    font-size: 4.375rem;
   }
 
-  @include lg-screen {
-    font-size: 3.5rem;
-  }
-
-  @include md-screen {
-    font-size: 3rem;
+  @include max-laptop {
+    font-size: 4rem;
   }
 }
 
 .page-title {
   margin-top: 2rem;
   text-transform: capitalize;
+
+  @include max-mobile-L {
+    text-align: center;
+  }
 }
 
 a,

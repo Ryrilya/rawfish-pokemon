@@ -28,7 +28,8 @@
 
     <div class="data-list__info">
       <h4 class="data-list__info-title">Hatching Steps</h4>
-      {{ hatchingSteps }}
+      
+      <span class="breeding__hatching-steps">{{ hatchingSteps }}</span>
     </div>
   </div>
 </template>
@@ -102,6 +103,11 @@ export default defineComponent({
 
   &__female {
     color: hsl(350, 100%, 70%);
+  }
+
+  &__hatching-steps {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

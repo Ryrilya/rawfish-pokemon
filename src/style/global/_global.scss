@@ -1,0 +1,35 @@
+// Main Header
+.main-header {
+  background-color: #2a2a2a;
+  padding: 2rem 3rem;
+
+  &__link {
+    color: white;
+    text-decoration: none;
+  }
+
+  &__brand {
+    font-size: 1.8em;
+    color: white;
+    cursor: pointer;
+    font-family: "Josefin Sans", sans-serif;
+  }
+}
+
+.underline-border {
+  position: relative;
+  line-height: 1.6em;
+
+  &::after {
+    content: "";
+    width: 100%;
+    max-width: 150px;
+    height: 0.25rem;
+    background-color: hsl(19, 85%, 56%);
+    border-radius: 0.5rem;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
