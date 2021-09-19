@@ -1,20 +1,13 @@
 <template>
   <main class="home">
-    <h2 class="home__page-title">Pokemon List</h2>
+    <h1 class="page-title">Pokemon List</h1>
 
-    <div class="loader" v-if="isLoading">
-      <img
-        class="loader__img"
-        src="@/assets/spinning-mew.gif"
-        alt="loader gif"
-      />
-      <h2 class="loader__subtitle">Catching all Pokemon...</h2>
-    </div>
+    <loader v-if="isLoading"></loader>
 
     <section class="home__main-content" v-show="!isLoading">
       <div class="home__pagination">
         <button
-          class="btn btn--primary"
+          class="home__pagination-btn btn btn--primary"
           type="button"
           @click="changePage(false)"
           :disabled="!prevPageUrl"
@@ -23,7 +16,7 @@
           Previous
         </button>
         <button
-          class="btn btn--primary"
+          class="home__pagination-btn btn btn--primary"
           type="button"
           @click="changePage"
           :disabled="!nextPageUrl"
@@ -43,7 +36,7 @@
 
       <div class="home__pagination">
         <button
-          class="btn btn--primary"
+          class="home__pagination-btn btn btn--primary"
           type="button"
           @click="changePage(false)"
           :disabled="!prevPageUrl"
@@ -52,7 +45,7 @@
           Previous
         </button>
         <button
-          class="btn btn--primary"
+          class="home__pagination-btn btn btn--primary"
           type="button"
           @click="changePage"
           :disabled="!nextPageUrl"
@@ -69,8 +62,8 @@
 import { defineComponent, onMounted, ref, computed } from 'vue';
 import { useStore } from 'vuex';
 
-import { IAPIResponse, ISource } from '@/models/APIResponse';
-import { IPokemon } from '@/models/IPokemon';
+import { IAPIResponse, Source } from '@/models/APIResponse';
+import { Pokemon } from '@/models/Pokemon';
 import PokemonCard from '@/components/PokemonCard.vue';
 
 export default defineComponent({
@@ -81,7 +74,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const isLoading = ref<boolean>(false);
-    const pokedex = computed<IPokemon[]>(() => store.state.pokemon || []);
+    const pokedex = computed<Pokemon[]>(() => store.state.pokemon || []);
     const nextPageUrl = ref<string | null>(null);
     const prevPageUrl = ref<string | null>(null);
 
@@ -90,12 +83,13 @@ export default defineComponent({
 
     onMounted(async () => {
       isLoading.value = true;
-
+        
       response = await store.dispatch('getAllPokemon') as IAPIResponse;
       nextPageUrl.value = response.next;
       prevPageUrl.value = response.previous;
 
       loadPokemon(response.results);
+
       setTimeout(() => {
         isLoading.value = false;
         loaderTimeout /= 2; // half cuts the fake time needed to load the page
@@ -103,9 +97,9 @@ export default defineComponent({
     });
 
     /**  Gets pokemon data and save it in store under *pokemon* variable */
-    async function loadPokemon(data: ISource[]) {
+    async function loadPokemon(data: Source[]) {
       // Fetch each pokemon data using its url
-      const pokemon = await Promise.all(data.map(async _pokemon => await fetchPkmnData(_pokemon.url))) as IPokemon[];
+      const pokemon = await Promise.all(data.map(async _pokemon => await fetchPkmnData(_pokemon.url))) as Pokemon[];
 
       await store.commit('updatePokemon', pokemon);
     }
@@ -140,34 +134,15 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .home {
-  padding: 2rem 5rem;
-
-  &__page-title {
-    font-size: 2em;
-  }
-
-  .loader {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    &__subtitle {
-      margin-top: 2rem;
-      color: #efc3d2;
-      text-transform: uppercase;
-      font-family: "Josefin Sans", sans-serif;
-    }
-  }
+  position: relative;
+  min-height: 100%;
+  padding: 2rem 3rem;
+  overflow: hidden;
 
   &__main-content {
     .home__pagination {
       display: flex;
+      flex-grow: unset;
       justify-content: space-between;
       align-items: center;
       margin: 2rem 0;
@@ -175,7 +150,7 @@ export default defineComponent({
 
     .home__pokemon-cards {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
       column-gap: 1rem;
       row-gap: 3rem;
     }

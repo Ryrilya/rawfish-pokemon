@@ -1,12 +1,15 @@
 <template>
   <div class="pokemon-card">
-    <div class="pokemon-card__sprite-container">
+    <router-link
+      class="pokemon-card__sprite-container"
+      :to="{ name: 'PokemonDetails', params: { name: pokemon.name } }"
+    >
       <img
         class="pokemon-card__sprite"
         :src="pokemon.sprites.front_default"
         :alt="pokemon.name + ' sprite'"
       />
-    </div>
+    </router-link>
 
     <div class="pokemon-card__header">
       <h3 class="pokemon-card__name">{{ pokemon.name }}</h3>
@@ -22,18 +25,19 @@
 
     <div class="pokemon-card__types">
       <span
-        :class="['pokemon-card__type', `pokemon-card__type--${slot.type.name}`]"
+        :class="['app__type-pill', `app__type-pill--${slot.type.name}`]"
         v-for="slot in pokemon.types"
         :key="slot"
       >
         {{ slot.type.name }}
+        <img class="app__type-pill-icon" :src="loadTypeImg(slot.type.name)" :alt="`${slot.type.name} icon`">
       </span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, inject } from 'vue';
 
 export default defineComponent({
   props: {
@@ -43,16 +47,24 @@ export default defineComponent({
     },
   },
   setup(){
-    return {};
+    const typeIconsFolder = inject<(path: string) => string>('typeIconsFolder');
+    const loadTypeImg = (type: string) => typeIconsFolder ? typeIconsFolder(`./${type}.svg`) : '';
+
+    return {
+      loadTypeImg,
+    };
   },
 });
 </script>
 
 <style lang="scss" scoped>
+@import '../style/utils/mixins';
+
 .pokemon-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  color: unset;
 
   &__sprite-container {
     display: flex;
@@ -86,6 +98,7 @@ export default defineComponent({
     .pokemon-card__name {
       font-size: 1.5em;
       text-transform: capitalize;
+      font-family: "Josefin Sans", sans-serif;
     }
 
     .pokemon-card__number {
@@ -110,102 +123,6 @@ export default defineComponent({
     gap: 0.5rem;
     font-weight: 400;
     margin-top: 1rem;
-
-    .pokemon-card__type {
-      padding: 0.25rem 1rem;
-      background-color: #eee;
-      border-radius: 0.5rem;
-
-      &--normal {
-        background-color: #a4acaf;
-        color: white;
-      }
-
-      &--fire {
-        background-color: #fd7d24;
-        color: white;
-      }
-
-      &--water {
-        background-color: #4592c4;
-        color: white;
-      }
-
-      &--grass {
-        background-color: #9bcc50;
-        color: white;
-      }
-
-      &--psychic {
-        background-color: #f366b9;
-        color: white;
-      }
-
-      &--fairy {
-        background-color: #fdb9e9;
-        color: white;
-      }
-
-      &--ice {
-        background-color: #51c4e7;
-        color: #2a2a2a;
-      }
-
-      &--poison {
-        background-color: #b97fc9;
-        color: white;
-      }
-
-      &--ground {
-        background-color: #f7de3f;
-        color: #2a2a2a;
-      }
-
-      &--fighting {
-        background-color: #d56723;
-        color: white;
-      }
-
-      &--electric {
-        background-color: #eed535;
-        color: #2a2a2a;
-      }
-
-      &--dark {
-        background-color: #707070;
-        color: white;
-      }
-
-      &--bug {
-        background-color: #729f3f;
-        color: white;
-      }
-
-      &--rock {
-        background-color: #a38c21;
-        color: white;
-      }
-
-      &--flying {
-        background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);
-        color: white;
-      }
-
-      &--ghost {
-        background-color: #7b62a3;
-        color: white;
-      }
-
-      &--steel {
-        background-color: #9eb7b8;
-        color: white;
-      }
-
-      &--dragon {
-        background: linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
-        color: white;
-      }
-    }
   }
 }
 </style>

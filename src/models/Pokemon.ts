@@ -1,35 +1,35 @@
-import { ISource } from './APIResponse';
+import { Source } from './APIResponse';
 
-export interface IPokemon {
+export interface Pokemon {
   abilities: Ability[];
   base_experience: number;
-  forms: ISource[];
+  forms: Source[];
   game_indices: Gameindex[];
   height: number;
   held_items: Helditem[];
   id: number;
   is_default: boolean;
   location_area_encounters: string;
-  moves: Move[];
+  moves: MoveSource[];
   name: string;
   order: number;
   past_types: any[];
-  species: ISource;
+  species: Source;
   sprites: Sprites;
   stats: Stat[];
-  types: Type[];
+  types: TypePokemon[];
   weight: number;
 }
 
-interface Type {
+export interface TypePokemon {
   slot: number;
-  type: ISource;
+  type: Source;
 }
 
-interface Stat {
+export interface Stat {
   base_stat: number;
   effort: number;
-  stat: ISource;
+  stat: Source;
 }
 
 interface Sprites {
@@ -148,10 +148,10 @@ interface Redblue {
 
 interface Other {
   dream_world: Dreamworld;
-  'official-artwork': Officialartwork;
+  'official-artwork': OfficialArtwork;
 }
 
-interface Officialartwork {
+export interface OfficialArtwork {
   front_default: string;
 }
 
@@ -160,34 +160,34 @@ interface Dreamworld {
   front_female?: any;
 }
 
-interface Move {
-  move: ISource;
+export interface MoveSource {
+  move: Source;
   version_group_details: Versiongroupdetail[];
 }
 
 interface Versiongroupdetail {
   level_learned_at: number;
-  move_learn_method: ISource;
-  version_group: ISource;
+  move_learn_method: Source;
+  version_group: Source;
 }
 
 interface Helditem {
-  item: ISource;
+  item: Source;
   version_details: Versiondetail[];
 }
 
 interface Versiondetail {
   rarity: number;
-  version: ISource;
+  version: Source;
 }
 
 interface Gameindex {
   game_index: number;
-  version: ISource;
+  version: Source;
 }
 
-interface Ability {
-  ability: ISource;
+export interface Ability {
+  ability: Source;
   is_hidden: boolean;
   slot: number;
 }
