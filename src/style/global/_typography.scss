@@ -19,6 +19,10 @@ h1 {
   @include max-laptop {
     font-size: 4rem;
   }
+
+  @include max-mobile-L {
+    font-size: 3rem;
+  }
 }
 
 .page-title {

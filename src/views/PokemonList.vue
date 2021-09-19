@@ -83,12 +83,13 @@ export default defineComponent({
 
     onMounted(async () => {
       isLoading.value = true;
-
+        
       response = await store.dispatch('getAllPokemon') as IAPIResponse;
       nextPageUrl.value = response.next;
       prevPageUrl.value = response.previous;
 
       loadPokemon(response.results);
+
       setTimeout(() => {
         isLoading.value = false;
         loaderTimeout /= 2; // half cuts the fake time needed to load the page
@@ -133,6 +134,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .home {
+  position: relative;
+  min-height: 100%;
   padding: 2rem 3rem;
   overflow: hidden;
 
