@@ -12,6 +12,12 @@
   border: none;
   border-radius: 0.5rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  transition: all .3s ease;
+
+  &:hover:not(&:disabled) {
+    box-shadow: 0 20px 30px -11px rgb(31 35 65 / 37%);
+    transform: translate(0px, -5px);
+  }
 
   &--primary {
     background-color: hsl(19, 85%, 56%);

@@ -11,19 +11,30 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/pokemon-list',
     name: 'PokemonList',
-    component: PokemonList
+    component: PokemonList,
+    meta: {
+      title: 'Rawfish Pokédex | Pokemon List'
+    }
   },
   {
     path: '/pokemon-details/:name',
     name: 'PokemonDetails',
     component: PokemonDetails,
-    props: true
+    props: true,
+    meta: {
+      title: 'Rawfish Pokédex | Pokemon Details'
+    }
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title as string; // Change tab title
+  next();
+});
 
 export default router
