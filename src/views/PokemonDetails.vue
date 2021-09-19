@@ -1,6 +1,6 @@
 <template>
   <main class="pokemon-details">
-    <loader v-if="isLoading"></loader>
+    <loader v-if="isLoading" :pokemon-name="tmpPkmnName"></loader>
 
     <header class="pokemon-details__header" v-if="pokemon && !isLoading">
       <h1 class="page-title">{{ pokemon.name }}</h1>
@@ -133,6 +133,7 @@ export default defineComponent({
     const route = useRoute();
     const store = useStore();
     const isLoading = ref<boolean>(false);
+    const tmpPkmnName = ref<string>('');
     const language = "en";
     const pokemonArtworkUrl = ref<string>('');
     const pokemon = ref<Pokemon>();
@@ -144,6 +145,8 @@ export default defineComponent({
 
     onMounted(async () => {
       isLoading.value = true;
+      tmpPkmnName.value = route.params.name.toString();
+
       const allPokemon = store.state.pokemon as Pokemon[];
 
       // Check if store's pokemon is empty
@@ -189,6 +192,7 @@ export default defineComponent({
     return {
       pokemon,
       isLoading,
+      tmpPkmnName,
       pokemonArtworkUrl,
       species,
       genus,
